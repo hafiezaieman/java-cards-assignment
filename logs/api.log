@@ -1,0 +1,18 @@
+2026-10-21 19:53:03.847 INFO  REQUEST  | POST /api/products | body={
+  "name": "Wireless Mouse",
+  "description": "2.4GHz ergonomic mouse",
+  "price": 49.90,
+  "quantity": 100
+}
+2026-10-21 19:53:03.849 INFO  RESPONSE | POST /api/products | status=201 | time=302ms | body={"createdAt":"2026-10-21T19:53:03.7417762","description":"2.4GHz ergonomic mouse","id":3,"name":"Wireless Mouse","price":49.90,"quantity":100}
+2026-10-21 19:53:10.079 INFO  REQUEST  | GET /api/products/3 | body=
+2026-10-21 19:53:10.079 INFO  RESPONSE | GET /api/products/3 | status=200 | time=34ms | body={"createdAt":"2026-10-21T19:53:03.7417762","description":"2.4GHz ergonomic mouse","id":3,"name":"Wireless Mouse","price":49.90,"quantity":100}
+2026-10-21 19:53:12.362 INFO  REQUEST  | PUT /api/products/3 | body={
+  "name": "Wireless Mouse Pro",
+  "description": "Updated description",
+  "price": 59.90,
+  "quantity": 80
+}
+2026-10-21 19:53:12.363 INFO  RESPONSE | PUT /api/products/3 | status=200 | time=19ms | body={"createdAt":"2026-10-21T19:53:03.7417762","description":"Updated description","id":3,"name":"Wireless Mouse Pro","price":59.90,"quantity":80}
+2026-10-21 19:53:16.765 INFO  REQUEST  | DELETE /api/products/3 | body=
+2026-10-21 19:53:16.765 INFO  RESPONSE | DELETE /api/products/3 | status=204 | time=17ms | body=
