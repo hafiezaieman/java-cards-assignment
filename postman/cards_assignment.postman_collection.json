@@ -32,6 +32,16 @@
       }
     },
     {
+      "name": "Get Product By Page (GET)",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('Status is 200', () => pm.response.to.have.status(200));"
+      ]}}],
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/api/products/?page=0", "host": ["{{baseUrl}}"], "path": ["api", "products"], "query": [{ "key": "page", "value": "0" }] }
+      }
+    },
+    {
       "name": "Update Product (PUT)",
       "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
         "pm.test('Status is 200', () => pm.response.to.have.status(200));"
