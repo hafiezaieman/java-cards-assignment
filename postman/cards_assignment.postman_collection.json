@@ -1,0 +1,79 @@
+{
+  "info": {
+    "name": "Spring Boot Assignment - Product API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8081" },
+    { "key": "productId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Create Product (POST)",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('Status is 201', () => pm.response.to.have.status(201));",
+        "pm.collectionVariables.set('productId', pm.response.json().id);"
+      ]}}],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Wireless Mouse\",\n  \"description\": \"2.4GHz ergonomic mouse\",\n  \"price\": 49.90,\n  \"quantity\": 100\n}" },
+        "url": { "raw": "{{baseUrl}}/api/products", "host": ["{{baseUrl}}"], "path": ["api", "products"] }
+      }
+    },
+    {
+      "name": "Get Product By Id (GET)",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('Status is 200', () => pm.response.to.have.status(200));"
+      ]}}],
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/api/products/{{productId}}", "host": ["{{baseUrl}}"], "path": ["api", "products", "{{productId}}"] }
+      }
+    },
+    {
+      "name": "Update Product (PUT)",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('Status is 200', () => pm.response.to.have.status(200));"
+      ]}}],
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Wireless Mouse Pro\",\n  \"description\": \"Updated description\",\n  \"price\": 59.90,\n  \"quantity\": 80\n}" },
+        "url": { "raw": "{{baseUrl}}/api/products/{{productId}}", "host": ["{{baseUrl}}"], "path": ["api", "products", "{{productId}}"] }
+      }
+    },
+    {
+      "name": "Delete Product (DELETE)",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('Status is 204', () => pm.response.to.have.status(204));"
+      ]}}],
+      "request": {
+        "method": "DELETE",
+        "url": { "raw": "{{baseUrl}}/api/products/{{productId}}", "host": ["{{baseUrl}}"], "path": ["api", "products", "{{productId}}"] }
+      }
+    },
+    {
+      "name": "Get Product - Not Found (negative test)",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('Status is 404', () => pm.response.to.have.status(404));"
+      ]}}],
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{baseUrl}}/api/products/999999", "host": ["{{baseUrl}}"], "path": ["api", "products", "999999"] }
+      }
+    },
+    {
+      "name": "Create Product - Validation Error (negative test)",
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": [
+        "pm.test('Status is 400', () => pm.response.to.have.status(400));"
+      ]}}],
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"\",\n  \"price\": -5,\n  \"quantity\": -1\n}" },
+        "url": { "raw": "{{baseUrl}}/api/products", "host": ["{{baseUrl}}"], "path": ["api", "products"] }
+      }
+    }
+  ]
+}
