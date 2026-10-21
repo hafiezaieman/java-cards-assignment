@@ -1,6 +1,8 @@
 package com.hafiez.cards_assignment.service;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.*;
 
 import com.hafiez.cards_assignment.dto.*;
 import com.hafiez.cards_assignment.entity.Product;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class ProductService {
 
     private final ProductRepository repository;
+    private static final int PAGE_SIZE = 10;
 
     public ProductService(ProductRepository repository) {
         this.repository = repository;
@@ -25,9 +28,24 @@ public class ProductService {
         return toResponse(repository.save(p));
     }
 
-    @Transactional(readOnly = true)      // GET
+    @Transactional(readOnly = true)      // GET by ID
     public ProductResponse getById(Long id) {
         return toResponse(find(id));
+    }
+
+    @Transactional(readOnly = true)     // GET by Page
+    public PagedResponse<Product> getProducts(int page) {
+        Pageable pageable = PageRequest.of(page, PAGE_SIZE, Sort.by("id").ascending());
+        Page<Product> result = repository.findAll(pageable);
+
+        return new PagedResponse<>(
+                result.getContent(),
+                result.getNumber(),
+                result.getSize(),
+                result.getTotalElements(),
+                result.getTotalPages(),
+                result.isLast()
+        );
     }
 
     @Transactional                       // UPDATE
@@ -37,7 +55,7 @@ public class ProductService {
         return toResponse(repository.save(p));
     }
 
-    @Transactional
+    @Transactional                      // DELETE
     public void delete(Long id) {
         repository.delete(find(id));
     }
